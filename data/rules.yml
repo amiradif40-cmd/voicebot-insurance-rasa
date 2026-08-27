@@ -1,0 +1,23 @@
+version: "3.1"
+
+rules:
+
+- rule: Saluer l'utilisateur
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- rule: Dire au revoir
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Repondre au challenge robot
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Repondre en cas d'incomprehension
+  steps:
+  - intent: nlu_fallback
+  - action: utter_default

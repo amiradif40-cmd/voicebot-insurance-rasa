@@ -1,0 +1,26 @@
+# Environnements virtuels
+venv/
+venv-api/
+venv-rasa/
+env/
+.venv/
+
+# Fichiers temporaires Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Fichiers audio générés
+audio_responses/
+*.mp3
+*.wav
+*.webm
+
+# Modèles Rasa générés (trop lourds pour Git)
+models/*.tar.gz
+.rasa/
+
+# Fichiers de configuration / clés API
+.env
+.vscode/
+.idea/

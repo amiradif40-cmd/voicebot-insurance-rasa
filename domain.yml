@@ -1,0 +1,38 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - bot_challenge
+  - declare_sinister
+  - inform_sinister_type
+
+entities:
+  - sinister_type
+
+slots:
+  sinister_type:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: sinister_type
+
+responses:
+  utter_greet:
+  - text: "Bonjour et bienvenue chez votre assistant assurance. Comment puis-je vous aider ?"
+
+  utter_goodbye:
+  - text: "C'est bien noté. Votre déclaration a été prise en compte, un conseiller va étudier votre dossier. Au revoir et bonne journée !"
+
+  utter_iamabot:
+  - text: "Je suis un assistant virtuel d'assurance conçu pour vous aider à déclarer vos sinistres."
+
+  utter_default:
+  - text: "Désolé, je n'ai pas bien compris. Pouvez-vous reformuler votre demande ?"
+
+  utter_ask_sinister_type:
+  - text: "De quel type de sinistre s'agit-il ? Auto, habitation ou vol ?"
+
+  utter_confirm_sinister_registration:
+  - text: "C'est bien noté pour votre sinistre {sinister_type}. La déclaration est enregistrée."

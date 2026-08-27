@@ -1,0 +1,33 @@
+version: "3.1"
+
+stories:
+
+- story: Declaration directe avec type de sinistre connu
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: declare_sinister
+    entities:
+    - sinister_type: habitation
+  - action: utter_confirm_sinister_registration
+  - action: utter_goodbye
+
+- story: Declaration directe auto
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: declare_sinister
+    entities:
+    - sinister_type: auto
+  - action: utter_confirm_sinister_registration
+  - action: utter_goodbye
+
+- story: Declaration de sinistre guidee (type flou)
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: declare_sinister
+  - action: utter_ask_sinister_type
+  - intent: inform_sinister_type
+  - action: utter_confirm_sinister_registration
+  - action: utter_goodbye

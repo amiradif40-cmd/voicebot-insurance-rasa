@@ -1,0 +1,12 @@
+# Dépendances du CŒUR CONVERSATIONNEL (Rasa)
+# -> à installer dans un venv DÉDIÉ, avec Python 3.10 (Rasa ne supporte pas
+#    Python 3.11+ à ce jour, l'installation échoue sinon).
+#
+#    python3.10 -m venv venv-rasa
+#    source venv-rasa/bin/activate
+#    pip install -r requirements.txt
+
+rasa==3.6.20
+
+# Décommentez si vous ajoutez des actions personnalisées (fichier actions/actions.py)
+# rasa-sdk==3.6.2

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Voicebot Assurance</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 500px; margin: 30px auto; padding: 20px; background: #f4f7f6; }
+        .chat-box { background: white; border-radius: 10px; padding: 15px; height: 350px; overflow-y: auto; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .msg { margin: 10px 0; padding: 10px; border-radius: 8px; }
+        .user { background: #007bff; color: white; text-align: right; }
+        .bot { background: #e9ecef; color: #333; }
+        .controls { margin-top: 15px; text-align: center; }
+        button { padding: 12px 20px; font-size: 16px; border: none; border-radius: 20px; background: #28a745; color: white; cursor: pointer; }
+        button.recording { background: #dc3545; }
+    </style>
+</head>
+<body>
+    <h2>🎙️ Assistant Assurance</h2>
+    <div class="chat-box" id="chat"></div>
+    <div class="controls">
+        <button id="recBtn">🎤 Appuyer pour Parler</button>
+    </div>
+
+<script>
+    let mediaRecorder, audioChunks = [];
+    const btn = document.getElementById('recBtn');
+    const chat = document.getElementById('chat');
+
+    btn.onclick = async () => {
+        if (!mediaRecorder || mediaRecorder.state === "inactive") {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+            audioChunks = [];
+            mediaRecorder.ondataavailable = e => { if (e.data.size > 0) audioChunks.push(e.data); };
+            mediaRecorder.onstop = sendAudio;
+            mediaRecorder.start();
+            btn.innerText = "🛑 Arrêter et Envoyer";
+            btn.style.background = "#dc3545";
+        } else {
+            btn.innerText = "⏳ Traitement en cours...";
+            btn.disabled = true;
+            mediaRecorder.stop();
+        }
+    };
+
+    async function sendAudio() {
+        const blob = new Blob(audioChunks, { type: 'audio/webm' });
+        const formData = new FormData();
+        formData.append('audio', blob, 'recording.webm');
+
+        try {
+            const res = await fetch('/voice', { method: 'POST', body: formData });
+            const transcription = decodeURIComponent(res.headers.get('X-Transcription') || '');
+            const botReply = decodeURIComponent(res.headers.get('X-Bot-Reply') || '');
+
+            if (transcription) {
+                chat.innerHTML += `<div class="msg user"><b>Vous :</b> ${transcription}</div>`;
+            }
+            chat.innerHTML += `<div class="msg bot"><b>Bot :</b> ${botReply}</div>`;
+            chat.scrollTop = chat.scrollHeight;
+
+            const audioBlob = await res.blob();
+            new Audio(URL.createObjectURL(audioBlob)).play();
+        } catch (err) {
+            console.error(err);
+        } finally {
+            btn.innerText = "🎤 Appuyer pour Parler";
+            btn.style.background = "#28a745";
+            btn.disabled = false;
+        }
+    }
+</script>
+</body>
+</html>

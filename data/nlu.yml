@@ -1,0 +1,74 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - bonjour
+    - salut
+    - hello
+    - bonsoir
+    - coucou
+    - bonjour l'assurance
+    - allo
+    - bonjour j'ai besoin d'aide
+    - vous pouvez m'aider ?
+    - bonjour assistant
+
+- intent: goodbye
+  examples: |
+    - au revoir
+    - à bientôt
+    - bonne journée
+    - ciao
+    - merci au revoir
+    - à plus tard
+    - bonne fin de journée
+    - c'est bon merci
+    - parfait merci au revoir
+
+- intent: bot_challenge
+  examples: |
+    - tu es un robot ?
+    - es-tu un humain ?
+    - qui es-tu ?
+    - c'est une vraie personne qui me répond ?
+    - tu es un assistant virtuel ?
+
+- intent: declare_sinister
+  examples: |
+    - je veux déclarer un sinistre
+    - j'ai eu un accident
+    - je souhaite déclarer un dégât des eaux
+    - j'ai un problème avec ma [voiture](sinister_type:auto)
+    - je veux faire une déclaration de [vol](sinister_type:vol)
+    - on m'a rentré dedans en [voiture](sinister_type:auto)
+    - il y a une [fuite d'eau](sinister_type:habitation) chez moi
+    - je viens d'avoir un [accrochage](sinister_type:auto)
+    - ma [maison](sinister_type:habitation) a été cambriolée
+    - je voudrais signaler un sinistre [auto](sinister_type:auto)
+    - j'ai un [bris de glace](sinister_type:auto) sur mon pare-brise
+    - un arbre est tombé sur mon [véhicule](sinister_type:auto)
+    - j'ai eu un [incendie](sinister_type:habitation) dans ma [maison](sinister_type:habitation)
+    - un [incendie](sinister_type:habitation) chez moi
+    - mon [appartement](sinister_type:habitation) a pris feu
+    - ma [voiture](sinister_type:auto) ne démarre plus suite à un choc
+    - on a cassé la vitre de mon [logement](sinister_type:habitation)
+    - j'ai inondé mon [appartement](sinister_type:habitation)
+    - fuite sous l'évier dans ma [cuisine](sinister_type:habitation)
+
+- intent: inform_sinister_type
+  examples: |
+    - c'est un accident [auto](sinister_type)
+    - sinistre [automobile](sinister_type:auto)
+    - un [dégât des eaux](sinister_type:habitation) chez moi
+    - un [vol](sinister_type) d'habitation
+    - c'est pour ma [maison](sinister_type:habitation)
+    - concerne mon [véhicule](sinister_type:auto)
+    - c'est un problème d'assurance [habitation](sinister_type)
+    - ma [voiture](sinister_type:auto)
+    - mon [logement](sinister_type:habitation)
+    - [dégât des eaux](sinister_type:habitation)
+    - [auto](sinister_type)
+    - [habitation](sinister_type)
+    - [vol](sinister_type)
+    - [incendie](sinister_type:habitation)
